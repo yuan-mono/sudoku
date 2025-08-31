@@ -4,6 +4,7 @@
 
 # HTML title tag content
 title = "sudoku"
+base_path = "sudoku"
 
 # include `assets` in web platform
 [web.resource]
@@ -19,3 +20,6 @@ script = []
 # Javascript code file
 # serve: [dev-server] only
 script = []
+
+# as pr. https://github.com/chmousset/rs-dioxus-deploy-action?tab=readme-ov-file#dioxus-configuration
+out_dir = "target/dx/sudoku/release/web/public"

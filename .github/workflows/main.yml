@@ -1,0 +1,66 @@
+name: github pages
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    environment:
+      name: github-pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Install latest rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          default: true
+          override: true
+      
+      - name: Apt update
+        run: sudo apt update
+      
+      - name: Install ubuntu essentials
+        run: sudo apt install -y libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev
+        
+      - name: Install rust toolchain
+        run: rustup toolchain install stable
+
+      - name: Install wasm
+        run: rustup target add wasm32-unknown-unknown
+      
+      - name: Install cargo-binstall
+        run: cargo install cargo-binstall
+
+      - name: Install dioxus
+        run: cargo install dioxus-cli
+
+      - name: Bundle
+        run: dx bundle --platform web
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: './target/dx/sudoku/release/web/public'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+   
