@@ -1,0 +1,28 @@
+# cargo
+/target
+.DS_Store
+# new recommendation to keep the lockfile in for CI and reproducible builds
+# Cargo.lock
+
+# rustfmt
+**/*.rs.bk
+
+# ignore the output of tmps
+tmp/
+bundle/
+
+# in debugging we frequently dump wasm to wat with `wasm-tools print`
+*.wat
+
+# dioxus
+.dioxus
+/dist
+static
+
+# vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
