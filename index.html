@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>sudoku</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+  <link rel="preload" as="script" href="/sudoku/assets/sudoku-de32fdf728b445ef.js" crossorigin><link rel="preload" as="fetch" type="application/wasm" href="/sudoku/assets/sudoku_bg-0a744eee9e0f0812.wasm" crossorigin></head>
+  <body>
+    <div id="main"></div>
+  <script>
+            // We can't use a module script here because we need to start the script immediately when streaming
+            import("/sudoku/assets/sudoku-de32fdf728b445ef.js").then(
+                ({ default: init }) => {
+                init("/sudoku/assets/sudoku_bg-0a744eee9e0f0812.wasm").then((wasm) => {
+                    if (wasm.__wbindgen_start == undefined) {
+                    wasm.main();
+                    }
+                });
+                }
+            );
+            </script>
+            
+            </body>
+</html>
